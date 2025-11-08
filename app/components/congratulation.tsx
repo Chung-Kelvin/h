@@ -85,6 +85,8 @@ export default function Congratulation() {
           </div>
         </div>
       </div>
+
+      <div> bánh gato</div>
     </div>
   );
 }

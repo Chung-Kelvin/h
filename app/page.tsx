@@ -41,7 +41,7 @@ export default function Home() {
   };
 
   const [step, setStep] = useState<"login" | "reset" | "answer" | "congrate">(
-    "answer"
+    "login"
   );
 
   useEffect(() => {
@@ -54,6 +54,7 @@ export default function Home() {
       {(step === "login" || step === "reset" || step === "answer") && (
         <div ref={heartsContainer} className="hearts-container"></div>
       )}
+
       {step === "login" && <Login nextStep={handleLoginSuccess}></Login>}
       {step === "reset" && <ResetPopup nextStep={handleResetStep}></ResetPopup>}
       {step === "answer" && (

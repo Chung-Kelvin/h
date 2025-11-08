@@ -15,18 +15,16 @@ export default function Login({ nextStep }: LoginProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   const clickButtonEnter = () => {
-    nextStep();
-    // if (password === "" || password === null || password === undefined) {
-    //   setError("❌ Vui lòng nhập mật khẩu!");
-    // } else {
-    //   const newAttempt = attempt + 1;
-    //   setAttempt(newAttempt);
-    //   setError("❌ Bạn đã nhập sai mật khẩu rồi!");
-    //   if (newAttempt >= 3) {
-    //     setIsVisible(false);
-    //   //  onLoginSuccess();
-    //   }
-    // }
+    if (password === "" || password === null || password === undefined) {
+      setError("❌ Vui lòng nhập mật khẩu!");
+    } else {
+      const newAttempt = attempt + 1;
+      setAttempt(newAttempt);
+      setError("❌ Bạn đã nhập sai mật khẩu rồi!");
+      if (newAttempt >= 3) {
+        nextStep();
+      }
+    }
   };
 
   return (
@@ -54,7 +52,9 @@ export default function Login({ nextStep }: LoginProps) {
           <span className="icon">♡</span>
         </div>
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="mt-2">
+          Password
+        </label>
         <div className="password-box">
           <input
             type="password"

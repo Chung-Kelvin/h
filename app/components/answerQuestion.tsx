@@ -8,6 +8,8 @@ interface AnswerQuestionProps {
 export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
   const [questionNo, setQuestionNo] = useState<string>("ques_1");
 
+  const [answers1, setAnswer] = useState<string>("");
+
   const handleNextQuestion = (nextQues: string) => {
     if (nextQues === "next") {
       nextStep();
@@ -25,26 +27,36 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
             <div className="question-card" id="questionNumber1">
               <div className="question">
                 <h2>Câu hỏi 1:</h2>
-                <Image
-                  src="/img/bear-login.jpg"
-                  alt="cute bear"
-                  className="rounded-lg"
-                  width={300}
-                  height={300}
-                />
+                <div className="flex justify-center my-4">
+                  <Image
+                    src="/img/bear-login.jpg"
+                    alt="cute bear"
+                    className="rounded-lg"
+                    width={300}
+                    height={300}
+                  />
+                </div>
                 <p>Quỳnh Nhi thích được gọi là gì?</p>
               </div>
-              {/* <div>
+              <div className="password-box">
                 <input
                   type="text"
-                  id="answerInput"
-                  // liên kết với state
+                  id="password"
+                  maxLength={20}
+                  placeholder="Hãy nhập câu trả lời của bạn..."
+                  value={answers1}
+                  onChange={(e) => setAnswer(e.target.value)}
                 />
-              </div> */}
+                <span className="icon">♡</span>
+              </div>
+              <p id="error-message" className="text-red-500 mt-2">
+                {answers1.trim() === "" && "❌ Vui lòng nhập câu trả lời!"}
+              </p>
               <button
                 id="loginBtn"
                 onClick={() => handleNextQuestion("ques_2")}
-                className="enter-btn mt-4"
+                disabled={answers1.trim() === ""}
+                className="enter-btn absolute bottom-4"
               >
                 Next
               </button>
@@ -58,15 +70,17 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
               <div className="question">
                 <h2>Câu hỏi 2:</h2>
 
-                <Image
-                  src="/img/bear-login.jpg"
-                  alt="cute bear"
-                  className="rounded-lg"
-                  width={300}
-                  height={300}
-                />
+                <div className="flex justify-center my-4">
+                  <Image
+                    src="/img/bear-login.jpg"
+                    alt="cute bear"
+                    className="rounded-lg"
+                    width={300}
+                    height={300}
+                  />
+                </div>
 
-                <p>Bé Nhi thích gì nhất?</p>
+                <p>{answers1} thích gì nhất?</p>
               </div>
 
               <ul className="answers">
@@ -76,10 +90,15 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
                   </button>
                 </li>
                 <li>
-                  <button className="answer-btn">B. ..</button>
+                  <button className="answer-btn">
+                    B. Một anh người yêu ngọt ngào
+                  </button>
                 </li>
                 <li>
-                  <button className="answer-btn">
+                  <button
+                    className="answer-btn"
+                    onClick={() => handleNextQuestion("ques_3")}
+                  >
                     C. Một bản nhạc thật hay
                   </button>
                 </li>
@@ -88,13 +107,13 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
                 </li>
               </ul>
 
-              <button
+              {/* <button
                 id="loginBtn"
                 onClick={() => handleNextQuestion("ques_3")}
-                className="enter-btn mt-4"
+                className="enter-btn absolute bottom-4"
               >
                 Next
-              </button>
+              </button> */}
             </div>
           </div>
         );
@@ -104,21 +123,22 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
             <div className="question-card" id="questionNumber1">
               <div className="question">
                 <h2>Câu hỏi 3:</h2>
-                <p>Điều ước sinh nhật tuổi 18 của bé Nhi là gì?</p>
-                <Image
-                  src="/img/bear-login.jpg"
-                  alt="cute bear"
-                  className="rounded-lg"
-                  width={300}
-                  height={300}
-                />
+                <p>Điều ước sinh nhật tuổi 18 của {answers1} là gì?</p>
+                <div className="flex justify-center my-4">
+                  <Image
+                    src="/img/bear-login.jpg"
+                    alt="cute bear"
+                    className="rounded-lg"
+                    width={300}
+                    height={300}
+                  />
+                </div>
               </div>
               <div>
                 <textarea
                   id="comment"
-                  // liên kết với state
                   placeholder="Hãy viết gì đó vào đây..."
-                  rows={5} // số dòng hiển thị
+                  rows={5}
                   style={{
                     width: "100%",
                     padding: "8px",
@@ -131,7 +151,7 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
 
               <button
                 id="loginBtn"
-                className="enter-btn mt-4"
+                className="enter-btn absolute bottom-4"
                 onClick={() => handleNextQuestion("next")}
               >
                 SUBMIT
