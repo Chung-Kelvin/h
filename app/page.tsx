@@ -1,65 +1,65 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import AnswerQuestion from "./components/answerQuestion";
+import Login from "./components/login";
+import ResetPopup from "./components/resetPopup";
+import Congratulation from "./components/congratulation";
 
 export default function Home() {
+  const heartsContainer = useRef<HTMLDivElement>(null);
+  const generateHearts = () => {
+    if (!heartsContainer.current) return;
+
+    for (let i = 0; i < 2; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart"); // dùng CSS Module
+      heart.textContent = "❤";
+
+      // Vị trí và kích thước ngẫu nhiên
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 20 + "px";
+      heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+
+      heartsContainer.current.appendChild(heart);
+
+      // Xóa trái tim sau khi bay xong
+      setTimeout(() => heart.remove(), 4000);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setStep("reset");
+  };
+
+  const handleResetStep = () => {
+    setStep("answer");
+  };
+
+  const handleAnswer = () => {
+    setStep("congrate");
+  };
+
+  const [step, setStep] = useState<"login" | "reset" | "answer" | "congrate">(
+    "answer"
+  );
+
+  useEffect(() => {
+    const interval = setInterval(generateHearts, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen">
+      {(step === "login" || step === "reset" || step === "answer") && (
+        <div ref={heartsContainer} className="hearts-container"></div>
+      )}
+      {step === "login" && <Login nextStep={handleLoginSuccess}></Login>}
+      {step === "reset" && <ResetPopup nextStep={handleResetStep}></ResetPopup>}
+      {step === "answer" && (
+        <AnswerQuestion nextStep={handleAnswer}></AnswerQuestion>
+      )}
+      {step === "congrate" && <Congratulation></Congratulation>}
+    </main>
   );
 }
