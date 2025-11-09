@@ -78,7 +78,6 @@ body {
 }
 .content {
   position: relative;
-  /* display: flex; */
   padding-top: 1rem;
 }
 .content .left,
@@ -903,4 +902,14 @@ body {
   cursor: pointer;
   color: white;
   z-index: 10000000000000000;
+}
+
+.gift-container {
+  position: relative;
+  background-color: red;
+  height: 932px;
+  width: 100%;
+  background-size: 80px 80px;
+  overflow: hidden;
+  z-index: 3;
 }

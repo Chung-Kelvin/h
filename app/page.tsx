@@ -5,6 +5,7 @@ import AnswerQuestion from "./components/answerQuestion";
 import Login from "./components/login";
 import ResetPopup from "./components/resetPopup";
 import Congratulation from "./components/congratulation";
+import Gift from "./components/gift";
 
 export default function Home() {
   const heartsContainer = useRef<HTMLDivElement>(null);
@@ -51,7 +52,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      {(step === "login" || step === "reset" || step === "answer") && (
+      {/* {(step === "login" || step === "reset" || step === "answer") && (
         <div ref={heartsContainer} className="hearts-container"></div>
       )}
 
@@ -59,8 +60,10 @@ export default function Home() {
       {step === "reset" && <ResetPopup nextStep={handleResetStep}></ResetPopup>}
       {step === "answer" && (
         <AnswerQuestion nextStep={handleAnswer}></AnswerQuestion>
-      )}
-      {step === "congrate" && <Congratulation></Congratulation>}
+      )} */}
+      {/* {step === "congrate" && <Congratulation></Congratulation>} */}
+      <Congratulation></Congratulation>
+      {/* <Gift></Gift> */}
     </main>
   );
 }

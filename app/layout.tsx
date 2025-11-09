@@ -4,6 +4,7 @@ import "./globals.css";
 import "./style/login.css";
 import "./style/question.css";
 import "./style/congrate.css";
+import "./style/gift.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

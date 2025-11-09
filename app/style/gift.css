@@ -1,0 +1,105 @@
+.envelope {
+  position: relative;
+  cursor: pointer;
+}
+.back {
+  position: relative;
+  width: 250px;
+  height: 200px;
+  background-color: #6247aa;
+}
+
+.letter {
+  position: absolute;
+  background-color: #fff;
+  width: 230px;
+  height: 180px;
+  top: 10px;
+  left: 10px;
+  transition: 0.25s;
+}
+
+.front {
+  position: absolute;
+  border-top: 100px solid transparent;
+  border-right: 130px solid #815ac0;
+  border-bottom: 100px solid transparent;
+  height: 0;
+  width: 0;
+  z-index: 3;
+  left: 120px;
+  top: 0;
+}
+
+.front::before {
+  content: "";
+  position: absolute;
+  border-top: 100px solid transparent;
+  border-left: 130px solid #815ac0;
+  border-bottom: 100px solid transparent;
+  height: 0;
+  width: 0;
+  top: -100px;
+  left: -120px;
+}
+
+.front::after {
+  content: "";
+  position: absolute;
+  border-bottom: 105px solid #7251b5;
+  border-left: 125px solid transparent;
+  border-right: 125px solid transparent;
+  height: 0;
+  width: 0;
+  top: -5px;
+  left: -120px;
+}
+
+.top {
+  position: absolute;
+  border-top: 105px solid #9163cb;
+  border-right: 125px solid transparent;
+  border-left: 125px solid transparent;
+  height: 0;
+  width: 0;
+  transform-origin: top;
+  transition: 2s;
+  top: 0;
+}
+
+.seal {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.shadow {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 10px;
+  top: 220px;
+  border-radius: 50%;
+}
+
+.envelope:hover .top {
+  transform: rotateX(160deg);
+}
+
+.envelope:hover .seal {
+  top: -25px; /* nổi cao hơn chút */
+  transform: translateX(-50%) scale(1.05);
+  z-index: 6; /* nổi lên trên tất cả */
+}
+
+.envelope:hover .letter {
+  transform: translateY(-120px);
+  z-index: 2;
+}
