@@ -9,6 +9,12 @@ import Gift from "./components/gift";
 
 export default function Home() {
   const heartsContainer = useRef<HTMLDivElement>(null);
+
+  const [answerFromChild, setAnswerFromChild] = useState<string>("");
+  const handleAnswerChange = (value: string) => {
+    setAnswerFromChild(value);
+  };
+
   const generateHearts = () => {
     if (!heartsContainer.current) return;
 
@@ -45,14 +51,24 @@ export default function Home() {
     "login"
   );
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleClick = () => {
+    audioRef.current?.play();
+  };
+
   useEffect(() => {
     const interval = setInterval(generateHearts, 2000);
+    audioRef.current?.play();
     return () => clearInterval(interval);
   }, []);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      {/* {(step === "login" || step === "reset" || step === "answer") && (
+      {(step === "login" ||
+        step === "reset" ||
+        step === "answer" ||
+        step === "congrate") && (
         <div ref={heartsContainer} className="hearts-container"></div>
       )}
 
@@ -60,10 +76,9 @@ export default function Home() {
       {step === "reset" && <ResetPopup nextStep={handleResetStep}></ResetPopup>}
       {step === "answer" && (
         <AnswerQuestion nextStep={handleAnswer}></AnswerQuestion>
-      )} */}
-      {/* {step === "congrate" && <Congratulation></Congratulation>} */}
-      <Congratulation></Congratulation>
-      {/* <Gift></Gift> */}
+      )}
+      {step === "congrate" && <Congratulation></Congratulation>}
+      <audio autoPlay muted loop src="/audio/bg.mp3" />
     </main>
   );
 }

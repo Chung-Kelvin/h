@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AnswerQuestionProps {
   nextStep: () => void;
+  // onAnswerChange: (value: string) => void;
 }
 
 export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {

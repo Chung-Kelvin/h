@@ -1,105 +1,119 @@
+.container {
+  position: relative;
+}
+
+/* Container chính (phần phong bì dưới) */
 .envelope {
   position: relative;
-  cursor: pointer;
-}
-.back {
-  position: relative;
-  width: 250px;
+  width: 300px;
   height: 200px;
-  background-color: #6247aa;
+  background: #f08080; /* Màu nền phong bì chính */
+  display: grid;
+  place-items: center;
 }
 
-.letter {
+/* Nắp phong bì trên (hình vuông xoay 45 độ) */
+.envelope::before {
+  content: "";
   position: absolute;
-  background-color: #fff;
-  width: 230px;
-  height: 180px;
-  top: 10px;
-  left: 10px;
-  transition: 0.25s;
+  width: 212px;
+  height: 212px;
+  background: #f08080; /* Cùng màu với thân phong bì */
+  transform: rotate(45deg);
+  top: -105px;
+  left: 44px;
+  border-radius: 30px 0 0 0;
 }
 
+/* Phần tam giác bên phải (tạo khe hở phong bì) */
 .front {
   position: absolute;
-  border-top: 100px solid transparent;
-  border-right: 130px solid #815ac0;
+  /* Kỹ thuật tạo tam giác bằng border */
+  border-right: 180px solid #f4978e;
+  border-top: 95px solid transparent;
   border-bottom: 100px solid transparent;
-  height: 0;
-  width: 0;
-  z-index: 3;
   left: 120px;
-  top: 0;
+  top: 5px;
+  width: 0;
+  height: 0;
+  z-index: 10; /* Đặt lên trên nắp phong bì */
 }
 
+/* Phần tam giác bên trái (tạo khe hở phong bì) */
 .front::before {
+  position: absolute;
   content: "";
-  position: absolute;
-  border-top: 100px solid transparent;
-  border-left: 130px solid #815ac0;
-  border-bottom: 100px solid transparent;
-  height: 0;
-  width: 0;
-  top: -100px;
+  /* Kỹ thuật tạo tam giác bằng border */
+  border-left: 300px solid #fda996;
+  border-top: 195px solid transparent;
   left: -120px;
+  top: -95px;
 }
 
-.front::after {
-  content: "";
-  position: absolute;
-  border-bottom: 105px solid #7251b5;
-  border-left: 125px solid transparent;
-  border-right: 125px solid transparent;
-  height: 0;
-  width: 0;
-  top: -5px;
-  left: -120px;
-}
-
-.top {
-  position: absolute;
-  border-top: 105px solid #9163cb;
-  border-right: 125px solid transparent;
-  border-left: 125px solid transparent;
-  height: 0;
-  width: 0;
-  transform-origin: top;
-  transition: 2s;
-  top: 0;
-}
-
-.seal {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  z-index: 5;
-}
-
-.shadow {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.1);
+/* Tấm thiệp bên trong */
+.card {
+  position: relative;
   width: 250px;
-  height: 10px;
-  top: 220px;
-  border-radius: 50%;
+  height: 180px;
+
+  background-image: url("/img/multiplebackground-4.png"),
+    url("/img/multiplebackground-1.jpg");
+  background-position: right bottom, left top;
+  background-repeat: no-repeat, repeat;
+  border-radius: 15px;
+  display: grid;
+  /* place-items: center; */
+  transform-origin: top center;
 }
 
-.envelope:hover .top {
-  transform: rotateX(160deg);
+/* Viền đứt nét bên trong tấm thiệp */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+
+  transform-origin: top center;
+  z-index: -1;
 }
 
-.envelope:hover .seal {
-  top: -25px; /* nổi cao hơn chút */
-  transform: translateX(-50%) scale(1.05);
-  z-index: 6; /* nổi lên trên tất cả */
+.card-content {
+  font-family: "Dancing Script", cursive;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1rem;
 }
 
-.envelope:hover .letter {
-  transform: translateY(-120px);
-  z-index: 2;
+/* Hiệu ứng khi hover vào container chính (giả định là .valentines) */
+.valentines:hover .card {
+  transform: translateY(-100px); /* Kéo tấm thiệp lên 100px */
+}
+
+/* Style cho nội dung text trên tấm thiệp */
+.card .text {
+  font-family: "Brush Script MT", cursive;
+  font-size: 28px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.typing::after {
+  content: "|";
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
 }

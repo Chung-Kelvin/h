@@ -3,14 +3,14 @@ import { useState } from "react";
 import Gift from "./gift";
 
 export default function Congratulation() {
-  const [clickGif, setClickGif] = useState(true);
+  const [clickGif, setClickGif] = useState(false);
 
   // setTimeout(() => {
   //   setClickGif(false);
   // }, 16000);
 
   const handleClickGift = () => {
-    setClickGif(true);
+    setClickGif(!clickGif);
   };
 
   return (
@@ -139,8 +139,21 @@ export default function Congratulation() {
       {clickGif && (
         <>
           {/* Overlay làm tối nền */}
-          <div className="fixed inset-0 bg-black backdrop-blur-sm transition-opacity z-40"></div>
-
+          <div className="fixed inset-0 bg-black opacity-50 bg-black backdrop-blur-sm transition-opacity z-40"></div>
+          <button
+            onClick={handleClickGift}
+            className="
+        fixed top-4 right-4 z-60
+    text-white text-4xl font-extrabold
+    hover:scale-110 active:scale-95
+    hover:text-red-400 active:text-red-500
+    transition-all duration-150
+    rounded-full
+    focus:outline-none focus:ring-4 focus:ring-red-400/50
+        "
+          >
+            ✖
+          </button>
           {/* Hộp quà (phong bì) */}
           <div className="fixed inset-0 flex justify-center items-center z-50">
             <div className="animate-fade-in">
