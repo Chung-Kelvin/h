@@ -12,7 +12,6 @@ export default function Login({ nextStep }: LoginProps) {
   const [error, setError] = useState("");
 
   const [attempt, setAttempt] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
 
   const clickButtonEnter = () => {
     if (password === "" || password === null || password === undefined) {
@@ -28,7 +27,7 @@ export default function Login({ nextStep }: LoginProps) {
   };
 
   return (
-    <div id="loginCard" className="login-card">
+    <div id="loginCard" className="login-card shadow-xl">
       {/* Hình ảnh */}
       <Image
         src="/img/bear-login.jpg"

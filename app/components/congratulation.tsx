@@ -1,17 +1,24 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Gift from "./gift";
 
-export default function Congratulation() {
+interface CongratulationProps {
+  nickName: string;
+}
+
+export default function Congratulation({ nickName }: CongratulationProps) {
   const [clickGif, setClickGif] = useState(false);
-
-  // setTimeout(() => {
-  //   setClickGif(false);
-  // }, 16000);
-
+  const [waitRender, setwaitRender] = useState(true);
   const handleClickGift = () => {
     setClickGif(!clickGif);
   };
+
+  useEffect(() => {
+    // Reset trạng thái khi component được gắn lại
+    setTimeout(() => {
+      setwaitRender(false);
+    }, 16000);
+  }, []);
 
   return (
     <>
@@ -125,12 +132,12 @@ export default function Congratulation() {
         </div>
 
         <div className="absolute bottom-4">
-          {true && (
+          {!clickGif && !waitRender && (
             <Image
               src="/img/wired-lineal-412-gift-hover-squeeze.gif"
               alt="cake"
-              width={200}
-              height={200}
+              width={160}
+              height={160}
               onClick={handleClickGift}
             />
           )}
@@ -142,7 +149,7 @@ export default function Congratulation() {
           <div className="fixed inset-0 bg-black opacity-50 bg-black backdrop-blur-sm transition-opacity z-40"></div>
           <button
             onClick={handleClickGift}
-            className="
+            className={`
         fixed top-4 right-4 z-60
     text-white text-4xl font-extrabold
     hover:scale-110 active:scale-95
@@ -150,14 +157,21 @@ export default function Congratulation() {
     transition-all duration-150
     rounded-full
     focus:outline-none focus:ring-4 focus:ring-red-400/50
-        "
+        `}
           >
             ✖
           </button>
           {/* Hộp quà (phong bì) */}
-          <div className="fixed inset-0 flex justify-center items-center z-50">
+          <div
+            className={`fixed inset-0 flex justify-center items-center z-50
+            transition-opacity duration-500 ${
+              clickGif ? "opacity-100" : "opacity-0 pointer-events-none"
+            } 
+            
+            `}
+          >
             <div className="animate-fade-in">
-              <Gift />
+              <Gift nickName={nickName} />
             </div>
           </div>
         </>

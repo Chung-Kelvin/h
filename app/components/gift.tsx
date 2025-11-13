@@ -5,25 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { animate, Timeline, createTimeline, set } from "animejs";
 import TypingAnime from "./typing";
 import TypingChar from "./typing";
+import Typed from "typed.js";
 
-function TypingText({ text, speed = 100 }: { text: string; speed?: number }) {
-  const [displayedText, setDisplayedText] = useState("");
-
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + text[index]);
-      index++;
-      if (index >= text.length) clearInterval(interval);
-    }, speed);
-
-    return () => clearInterval(interval); // cleanup
-  }, [text, speed]);
-
-  return <span>{displayedText}</span>;
+interface GiftProps {
+  nickName?: string;
 }
 
-export default function Gift() {
+export default function Gift({ nickName }: GiftProps) {
   const [open, setOpen] = useState(true);
 
   const contentLetter =
@@ -35,6 +23,9 @@ export default function Gift() {
   const cardContentRef = useRef<HTMLDivElement>(null);
 
   const tl = useRef<Timeline | null>(null);
+
+  const typeContentRef = useRef(null);
+  const signatureRef = useRef(null);
   useEffect(() => {
     tl.current = createTimeline({ autoplay: false })
       .add(
@@ -55,6 +46,25 @@ export default function Gift() {
     if (!tl.current) return;
     if (open) {
       tl.current.play();
+      const typed = new Typed(typeContentRef.current, {
+        strings: [contentLetter],
+        typeSpeed: 80,
+        loop: false,
+        showCursor: true,
+        cursorChar: "|",
+        startDelay: 2000,
+        onComplete: () => {
+          setTimeout(() => {
+            new Typed(signatureRef.current, {
+              strings: ["ĐiBộVuốtRosé"],
+              typeSpeed: 80,
+              showCursor: false,
+            });
+          }, 1000);
+        },
+      });
+
+      return () => typed.destroy();
     } else {
       tl.current.reverse();
     }
@@ -71,18 +81,22 @@ export default function Gift() {
           >
             <div
               ref={cardContentRef}
-              className="card-content text-center text-xl font-semibold p-6"
+              className="card-content text-xl font-semibold p-6"
             >
               <div className="mb-6">
                 <p className="text-left indent-8 whitespace-pre-line mb-8">
-                  Dear Quỳnh Nhi
+                  Dear {nickName || "Quỳnh Nhi"},
                 </p>
               </div>
-              <p className="text-left">{contentLetter}</p>
               <div>
-                <p className="text-right text-lg font-semibold italic">
-                  ĐiBộVuốtRosé
-                </p>
+                <span className="text-left" ref={typeContentRef}></span>
+              </div>
+
+              <div className="mt-6 text-right">
+                <span
+                  ref={signatureRef}
+                  className=" text-lg font-semibold italic"
+                ></span>
               </div>
             </div>
           </div>

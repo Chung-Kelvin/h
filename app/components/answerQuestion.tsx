@@ -1,15 +1,24 @@
+import { set } from "animejs";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface AnswerQuestionProps {
   nextStep: () => void;
-  // onAnswerChange: (value: string) => void;
+  onValueChange: (value: string) => void;
 }
 
-export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
+export default function AnswerQuestion({
+  nextStep,
+  onValueChange,
+}: AnswerQuestionProps) {
   const [questionNo, setQuestionNo] = useState<string>("ques_1");
 
   const [answers1, setAnswer] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAnswer(e.target.value);
+    onValueChange(e.target.value);
+  };
 
   const handleNextQuestion = (nextQues: string) => {
     if (nextQues === "next") {
@@ -37,7 +46,9 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
                     height={300}
                   />
                 </div>
-                <p>Quỳnh Nhi thích được gọi là gì?</p>
+                <div className="my-2">
+                  <p>Quỳnh Nhi thích được gọi là gì?</p>
+                </div>
               </div>
               <div className="password-box">
                 <input
@@ -46,7 +57,7 @@ export default function AnswerQuestion({ nextStep }: AnswerQuestionProps) {
                   maxLength={20}
                   placeholder="Hãy nhập câu trả lời của bạn..."
                   value={answers1}
-                  onChange={(e) => setAnswer(e.target.value)}
+                  onChange={handleChange}
                 />
                 <span className="icon">♡</span>
               </div>

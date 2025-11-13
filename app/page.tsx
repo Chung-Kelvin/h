@@ -5,16 +5,16 @@ import AnswerQuestion from "./components/answerQuestion";
 import Login from "./components/login";
 import ResetPopup from "./components/resetPopup";
 import Congratulation from "./components/congratulation";
-import Gift from "./components/gift";
-
 export default function Home() {
   const heartsContainer = useRef<HTMLDivElement>(null);
 
-  const [answerFromChild, setAnswerFromChild] = useState<string>("");
-  const handleAnswerChange = (value: string) => {
-    setAnswerFromChild(value);
-  };
+  const [nickName, setNickName] = useState<string>("");
 
+  const handlePlayAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch((err) => console.log(err));
+    }
+  };
   const generateHearts = () => {
     if (!heartsContainer.current) return;
 
@@ -53,8 +53,8 @@ export default function Home() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const handleClick = () => {
-    audioRef.current?.play();
+  const handlePlay = () => {
+    audioRef.current?.play().catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function Home() {
     audioRef.current?.play();
     return () => clearInterval(interval);
   }, []);
-
+  const el = useRef(null);
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
       {(step === "login" ||
@@ -73,12 +73,25 @@ export default function Home() {
       )}
 
       {step === "login" && <Login nextStep={handleLoginSuccess}></Login>}
-      {step === "reset" && <ResetPopup nextStep={handleResetStep}></ResetPopup>}
-      {step === "answer" && (
-        <AnswerQuestion nextStep={handleAnswer}></AnswerQuestion>
+      {step === "reset" && (
+        <ResetPopup
+          nextStep={handleResetStep}
+          onPlayAudio={handlePlayAudio}
+        ></ResetPopup>
       )}
-      {step === "congrate" && <Congratulation></Congratulation>}
-      <audio autoPlay muted loop src="/audio/bg.mp3" />
+      {step === "answer" && (
+        <AnswerQuestion
+          nextStep={handleAnswer}
+          onValueChange={setNickName}
+        ></AnswerQuestion>
+      )}
+      {step === "congrate" && (
+        <Congratulation nickName={nickName}></Congratulation>
+      )}
+      <audio ref={audioRef} loop>
+        <source src="audio/audio.mp3" type="audio/mpeg" />
+      </audio>
+      <button onClick={handlePlay}>Play</button>
     </main>
   );
 }

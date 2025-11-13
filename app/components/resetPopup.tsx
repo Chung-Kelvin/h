@@ -1,9 +1,11 @@
 interface ResetProps {
   nextStep: () => void;
+  onPlayAudio: () => void;
 }
-export default function ResetPopup({ nextStep }: ResetProps) {
+export default function ResetPopup({ nextStep, onPlayAudio }: ResetProps) {
   const clickButtonEnter = () => {
     nextStep();
+    onPlayAudio();
   };
 
   return (
