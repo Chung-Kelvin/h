@@ -15,7 +15,7 @@ export default function Gift({ nickName }: GiftProps) {
   const [open, setOpen] = useState(true);
 
   const contentLetter =
-    "🎉 Chúc mừng sinh nhật tuổi 18! 🎂 Chúc bạn luôn mạnh khỏe 💪, hạnh phúc ❤️ và vững bước trên con đường trưởng thành 🌟 Chúc bạn luôn mạnh khỏe 💪, hạnh phúc ❤️ và vững bước trên con đường trưởng thành 🌟Chúc bạn luôn mạnh khỏe 💪, hạnh phúc ❤️ và vững bước trên con đường trưởng thành 🌟, với thật nhiều thành công 🏆 và trải nghiệm đáng nhớ ✨";
+  "Từ nơi phương xa ngàn dặm, gửi đến cô gái dễ thương, dù chưa một lần gặp mặt, chút thương nhớ khẽ hòa vào những tia nắng đầu đông dịu nhẹ ☀️🍂. Gió lặng lẽ mang theo bao lời nhắn gửi, đem đến em những điều đẹp đẽ nhất 🌸✨. Mong em luôn giữ được nụ cười tươi 😄, niềm hạnh phúc dịu dàng 💛 và một trái tim đong đầy yêu thương cùng điều ngào 💖🍯. Mong cuộc sống sẽ thật nhẹ nhàng với em, như chính cách em âm thầm khiến trái tim anh trở nên ấm áp hơn❤️.";
 
   const envelopeRef = useRef<HTMLDivElement>(null);
 

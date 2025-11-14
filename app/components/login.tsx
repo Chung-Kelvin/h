@@ -43,9 +43,7 @@ export default function Login({ nextStep }: LoginProps) {
         <div className="password-box mb-3">
           <input
             type="text"
-            value="Nhi"
             id="username"
-            readOnly
             placeholder="Username"
           />
           <span className="icon">♡</span>

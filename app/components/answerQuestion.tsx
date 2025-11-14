@@ -39,7 +39,7 @@ export default function AnswerQuestion({
                 <h2>Câu hỏi 1:</h2>
                 <div className="flex justify-center my-4">
                   <Image
-                    src="/img/bear-login.jpg"
+                    src="/img/cat-6.jpg"
                     alt="cute bear"
                     className="rounded-lg"
                     width={300}
@@ -84,7 +84,7 @@ export default function AnswerQuestion({
 
                 <div className="flex justify-center my-4">
                   <Image
-                    src="/img/bear-login.jpg"
+                    src="/img/cat-2.jpg"
                     alt="cute bear"
                     className="rounded-lg"
                     width={300}
@@ -138,11 +138,11 @@ export default function AnswerQuestion({
                 <p>Điều ước sinh nhật tuổi 18 của {answers1} là gì?</p>
                 <div className="flex justify-center my-4">
                   <Image
-                    src="/img/bear-login.jpg"
+                    src="/img/cat-3.jpg"
                     alt="cute bear"
                     className="rounded-lg"
-                    width={300}
-                    height={300}
+                    width={280}
+                    height={280}
                   />
                 </div>
               </div>
