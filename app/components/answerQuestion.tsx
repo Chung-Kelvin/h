@@ -102,20 +102,19 @@ export default function AnswerQuestion({
                   </button>
                 </li>
                 <li>
-                  <button className="answer-btn">
+                  <button className="answer-btn" onClick={() => handleNextQuestion("ques_3")}>
                     B. Một anh người yêu ngọt ngào
                   </button>
                 </li>
                 <li>
                   <button
                     className="answer-btn"
-                    onClick={() => handleNextQuestion("ques_3")}
                   >
-                    C. Một bản nhạc thật hay
+                    C. Những chú mèo dễ thương
                   </button>
                 </li>
                 <li>
-                  <button className="answer-btn">D. Những chiếc ánh kem</button>
+                  <button className="answer-btn">D. Đi du lịch</button>
                 </li>
               </ul>
 
